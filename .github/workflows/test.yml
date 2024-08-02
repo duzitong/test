@@ -1,0 +1,29 @@
+name: Run some tests
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  SECRET1: ${{ secrets.SECRET1 }}
+  SECRET2: ${{ secrets.SECRET2 }}
+
+jobs:
+  test:
+    runs-on: windows-latest
+    environment: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test
+        run: |
+          echo $env:SECRET1 > ./out.txt
+          echo $env:SECRET2 >> ./out.txt
+      - name: Upload out
+        uses: actions/upload-artifact@v3
+        with:
+          name: out
+          path: "./out.txt"
