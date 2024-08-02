@@ -2,6 +2,11 @@ name: Run some tests
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run the tests in'
+        required: true
+        default: 'terraform'
 
 permissions:
   contents: write
@@ -14,7 +19,7 @@ env:
 jobs:
   test:
     runs-on: windows-latest
-    environment: terraform
+    environment: ${{ github.event.inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
