@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Test
         run: |
+          echo $env:SECRET1
+          echo $env:SECRET2
           echo $env:SECRET1 > ./out.txt
           echo $env:SECRET2 >> ./out.txt
       - name: Upload out
