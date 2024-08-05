@@ -22,12 +22,16 @@ jobs:
         id: split
         run: |
           WD="${{ inputs.working-directory }}"
-            echo "environment=${WD##*/}" >> $GITHUB_OUTPUT
+          echo "environment=${WD##*/}" >> $GITHUB_OUTPUT
+          echo "environment=${WD##*/}"
   test:
     runs-on: windows-latest
     environment: ${{ needs.setup.outputs.environment }}
     needs: setup
     steps:
+      - name: echo environment
+        run: |
+          echo ${{ needs.setup.outputs.environment }}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test
