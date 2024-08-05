@@ -4,9 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       working-directory:
-        description: 'Environment to run the tests in'
         required: true
-        default: 'terraform'
 
 permissions:
   contents: write
@@ -23,7 +21,7 @@ jobs:
       - name: Set environment
         id: split
         run: |
-          WD="${{ github.event.inputs.working-directory }}"
+          WD="${{ inputs.working-directory }}"
             echo "environment=${WD##*/}" >> $GITHUB_ENV
   test:
     runs-on: windows-latest
