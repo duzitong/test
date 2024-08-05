@@ -3,10 +3,8 @@ name: Run some tests
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Environment to run the tests in'
+      working-directory:
         required: true
-        default: 'terraform'
 
 permissions:
   contents: write
@@ -17,9 +15,17 @@ env:
   SECRET2: ${{ secrets.SECRET2 }}
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment
+        id: split
+        run: |
+          WD="${{ inputs.working-directory }}"
+            echo "environment=${WD##*/}" >> $GITHUB_ENV
   test:
     runs-on: windows-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.env.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
