@@ -10,10 +10,6 @@ permissions:
   contents: write
   id-token: write
 
-env:
-  SECRET1: ${{ secrets.SECRET1 }}
-  SECRET2: ${{ secrets.SECRET2 }}
-
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -29,6 +25,9 @@ jobs:
   test:
     runs-on: windows-latest
     environment: ${{ needs.setup.outputs.environment }}
+    env:
+      SECRET1: ${{ secrets.SECRET1 }}
+      SECRET2: ${{ secrets.SECRET2 }}
     needs: setup
     steps:
       - name: echo environment
