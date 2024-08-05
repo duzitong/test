@@ -26,6 +26,7 @@ jobs:
   test:
     runs-on: windows-latest
     environment: ${{ github.env.environment }}
+    needs: setup
     steps:
       - name: Checkout
         uses: actions/checkout@v2
