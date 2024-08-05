@@ -39,14 +39,17 @@ jobs:
           $value="jobsecret2"
           echo "::add-mask::$value"
           echo "SECRET2=$value" >> "$GITHUB_ENV"
+          echo "SECRET3=$value" >> "$GITHUB_ENV"
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test
         run: |
           echo $env:SECRET1
           echo $env:SECRET2
+          echo $env:SECRET3
           echo $env:SECRET1 > ./out.txt
           echo $env:SECRET2 >> ./out.txt
+          echo $env:SECRET3 >> ./out.txt
       - name: Upload out
         uses: actions/upload-artifact@v3
         with:
