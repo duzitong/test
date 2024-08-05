@@ -38,8 +38,8 @@ jobs:
         run: |
           $value="jobsecret2"
           echo "::add-mask::$value"
-          echo "SECRET2=$value" >> "$GITHUB_ENV"
-          echo "SECRET3=$value" >> "$GITHUB_ENV"
+          echo "SECRET2=$value" >> $env:GITHUB_ENV
+          echo "SECRET3=$value" >> $env:GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test
