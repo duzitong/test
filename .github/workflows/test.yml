@@ -22,8 +22,8 @@ jobs:
         id: split
         run: |
           WD="${{ inputs.working-directory }}"
-          echo "environment=${WD##*/}" >> $GITHUB_OUTPUT
-          echo "environment=${WD##*/}"
+          echo "environment=${WD##*/}" >> "$GITHUB_OUTPUT"
+          echo "environment=${WD##*/}^"
   test:
     runs-on: windows-latest
     environment: ${{ needs.setup.outputs.environment }}
