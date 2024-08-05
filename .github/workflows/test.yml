@@ -20,15 +20,21 @@ jobs:
           WD="${{ inputs.working-directory }}"
           echo "environment=${WD##*/}" >> "$GITHUB_OUTPUT"
           echo "${WD##*/}^"
+      - name: Set secrets
+        id: secret
+        run: |
+          echo "::add-mask::jobsecret2"
+          echo "SECRET2=jobsecret2" >> "$GITHUB_OUTPUT"
     outputs:
       environment: ${{ steps.split.outputs.environment }}
+      secret2: ${{ steps.secret.outputs.SECRET2 }}
   test:
     runs-on: windows-latest
+    needs: setup
     environment: ${{ needs.setup.outputs.environment }}
     env:
       SECRET1: ${{ secrets.SECRET1 }}
-      SECRET2: ${{ secrets.SECRET2 }}
-    needs: setup
+      SECRET2: ${{ needs.setup.outputs.secret2 }}
     steps:
       - name: echo environment
         run: |
